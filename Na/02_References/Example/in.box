@@ -1,0 +1,4 @@
+read_data	data.equil
+
+variable 	mass equal 22.98977
+mass            1 ${mass}
