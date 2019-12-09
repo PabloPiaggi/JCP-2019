@@ -1,0 +1,25 @@
+echo both
+
+include         in.partitions
+include		in.temp
+include		in.pressure
+include 	in.seed
+units		metal
+read_restart    Restart.lmp.${p_id}
+include 	in.setup
+
+timer 		timeout 23:50:00 every 1000
+
+# NPT
+
+include		in.dump
+
+
+fix             1 all plumed plumedfile plumed.dat outfile plumed.out
+fix             2 all nph iso ${pressure} ${pressure} ${pressureDamp}
+fix             3 all temp/csvr ${temperature} ${temperature} ${tempDamp} ${seed}
+fix             4 all momentum 10000 linear 1 1 1 angular
+
+run             50000000 upto # 100 ns
+
+write_data	data.final

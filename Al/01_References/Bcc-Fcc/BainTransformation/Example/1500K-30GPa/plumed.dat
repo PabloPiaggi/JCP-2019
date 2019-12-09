@@ -1,0 +1,49 @@
+# vim:ft=plumed
+
+RESTART
+
+energy: ENERGY
+
+vol: VOLUME
+
+cell: CELL
+
+lambda1: MATHEVAL ARG=cell.cz FUNC=(x/4-0.378810046139)/(0.296244982844-0.378810046139) PERIODIC=NO
+lambda2: MATHEVAL ARG=cell.ax FUNC=(x/4-0.378810046139)/(sqrt(2)*0.296244982844-0.378810046139) PERIODIC=NO
+
+diff: MATHEVAL ARG=lambda1,lambda2 FUNC=(x-y)*(x-y) PERIODIC=NO
+
+# Construct a bias potential using VES
+#
+# Basis functions
+
+bf1: BF_LEGENDRE ORDER=20 MINIMUM=-0.5 MAXIMUM=1.5
+
+# Target distribution
+td_welltemp: TD_WELLTEMPERED BIASFACTOR=15
+
+# Expansion
+
+VES_LINEAR_EXPANSION ...
+ ARG=lambda1
+ BASIS_FUNCTIONS=bf1
+ TEMP=1500.0
+ GRID_BINS=300
+ TARGET_DISTRIBUTION=td_welltemp
+ LABEL=b1
+... VES_LINEAR_EXPANSION
+
+# Optimization algorithm
+
+OPT_DUMMY ...
+  BIAS=b1
+  STRIDE=500
+  LABEL=o1
+  COEFFS_OUTPUT=10
+... OPT_DUMMY
+
+wall1: UPPER_WALLS ARG=lambda1 AT=1. EXP=2 KAPPA=10000. 
+wall2: LOWER_WALLS ARG=lambda1 AT=0. EXP=2 KAPPA=10000. 
+wall3: UPPER_WALLS ARG=diff AT=0. EXP=2 KAPPA=10000. 
+
+PRINT ARG=* FILE=COLVAR STRIDE=500

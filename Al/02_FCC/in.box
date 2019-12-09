@@ -1,0 +1,4 @@
+read_data	data.equil.${p_id}
+
+variable 	mass equal 26.981539
+mass            1 ${mass}

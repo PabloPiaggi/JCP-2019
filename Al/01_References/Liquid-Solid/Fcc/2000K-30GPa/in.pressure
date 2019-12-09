@@ -1,0 +1,2 @@
+variable	pressure equal 300000.
+variable	pressureDamp equal 1.0

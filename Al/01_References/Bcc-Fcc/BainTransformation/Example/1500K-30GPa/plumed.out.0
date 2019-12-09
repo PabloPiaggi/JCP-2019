@@ -1,0 +1,174 @@
+PLUMED: PLUMED is starting
+PLUMED: Version: 2.4.4 (git: 361e216b9) compiled on Feb  9 2019 at 09:34:25
+PLUMED: Please cite this paper when using PLUMED [1]
+PLUMED: For further information see the PLUMED web page at http://www.plumed.org
+PLUMED: Root: /users/piaggip/bin/DAINT/PLUMED/ToInstall/lib/plumed
+PLUMED: For installed feature, see /users/piaggip/bin/DAINT/PLUMED/ToInstall/lib/plumed/src/config/config.txt
+PLUMED: Molecular dynamics engine: LAMMPS
+PLUMED: Precision of reals: 8
+PLUMED: Running over 8 nodes
+PLUMED: Number of threads: 1
+PLUMED: Cache line size: 512
+PLUMED: Number of atoms: 256
+PLUMED: GROMACS-like replica exchange is on
+PLUMED: File suffix: .0
+PLUMED: FILE: plumed.dat
+PLUMED: Action RESTART
+PLUMED:   with label @0
+PLUMED:   MD code didn't require restart
+PLUMED:   Switching on restart
+PLUMED:   Restarting simulation: files will be appended
+PLUMED: Action ENERGY
+PLUMED:   with label energy
+PLUMED:   Bibliography [2][3]
+PLUMED: Action VOLUME
+PLUMED:   with label vol
+PLUMED: Action CELL
+PLUMED:   with label cell
+PLUMED:   added component to this action:  cell.ax 
+PLUMED:   added component to this action:  cell.ay 
+PLUMED:   added component to this action:  cell.az 
+PLUMED:   added component to this action:  cell.bx 
+PLUMED:   added component to this action:  cell.by 
+PLUMED:   added component to this action:  cell.bz 
+PLUMED:   added component to this action:  cell.cx 
+PLUMED:   added component to this action:  cell.cy 
+PLUMED:   added component to this action:  cell.cz 
+PLUMED: Action MATHEVAL
+PLUMED:   with label lambda1
+PLUMED:   with arguments cell.cz
+PLUMED:   with function : (x/4-0.378810046139)/(0.296244982844-0.378810046139)
+PLUMED:   with variables : x
+PLUMED:   WARNING: you are using lepton as a replacement for libmatheval
+PLUMED:   function as parsed by lepton: -12.1117*(-0.37881+(0.25*(x)))
+PLUMED:   derivatives as computed by lepton:
+PLUMED:     -3.02792
+PLUMED: Action MATHEVAL
+PLUMED:   with label lambda2
+PLUMED:   with arguments cell.ax
+PLUMED:   with function : (x/4-0.378810046139)/(sqrt(2)*0.296244982844-0.378810046139)
+PLUMED:   with variables : x
+PLUMED:   WARNING: you are using lepton as a replacement for libmatheval
+PLUMED:   function as parsed by lepton: 24.9106*(-0.37881+(0.25*(x)))
+PLUMED:   derivatives as computed by lepton:
+PLUMED:     6.22764
+PLUMED: Action MATHEVAL
+PLUMED:   with label diff
+PLUMED:   with arguments lambda1 lambda2
+PLUMED:   with function : (x-y)*(x-y)
+PLUMED:   with variables : x y
+PLUMED:   WARNING: you are using lepton as a replacement for libmatheval
+PLUMED:   function as parsed by lepton: square((x)-(y))
+PLUMED:   derivatives as computed by lepton:
+PLUMED:     ((x)-(y))+((x)-(y))
+PLUMED:     (-1*((x)-(y)))+(-1*((x)-(y)))
+PLUMED: Action BF_LEGENDRE
+PLUMED:   with label bf1
+PLUMED:   One-dimensional basis set
+PLUMED:    Description: Legendre polynomials
+PLUMED:    Type: Legendre
+PLUMED:    Order of basis set: 20
+PLUMED:    Number of basis functions: 21
+PLUMED:    Interval of basis set: -0.5 to 1.5
+PLUMED:    Description of basis functions:
+PLUMED:      0            L0(s)
+PLUMED:      1            L1(s)
+PLUMED:      2            L2(s)
+PLUMED:      3            L3(s)
+PLUMED:      4            L4(s)
+PLUMED:      5            L5(s)
+PLUMED:      6            L6(s)
+PLUMED:      7            L7(s)
+PLUMED:      8            L8(s)
+PLUMED:      9            L9(s)
+PLUMED:     10           L10(s)
+PLUMED:     11           L11(s)
+PLUMED:     12           L12(s)
+PLUMED:     13           L13(s)
+PLUMED:     14           L14(s)
+PLUMED:     15           L15(s)
+PLUMED:     16           L16(s)
+PLUMED:     17           L17(s)
+PLUMED:     18           L18(s)
+PLUMED:     19           L19(s)
+PLUMED:     20           L20(s)
+PLUMED: Action TD_WELLTEMPERED
+PLUMED:   with label td_welltemp
+PLUMED:   Well-tempered target distribution, see and cite [4][5]
+PLUMED: Action VES_LINEAR_EXPANSION
+PLUMED:   with label b1
+PLUMED:   with arguments lambda1
+PLUMED:   added component to this action:  b1.bias 
+PLUMED:   VES bias, please read and cite [6]
+PLUMED:   KbT: 12.471693
+PLUMED:   using target distribution of type TD_WELLTEMPERED with label td_welltemp 
+PLUMED:   added component to this action:  b1.force2 
+PLUMED: Action OPT_DUMMY
+PLUMED:   with label o1
+PLUMED:   with stride 500
+PLUMED:   optimizing VES bias VES_LINEAR_EXPANSION with label b1: 
+PLUMED:    KbT: 12.471693
+PLUMED:   number of coefficients: 21
+PLUMED:   Read in coefficents from file coeffs.data (read 21 of 21 values)
+PLUMED:   Optimization restarted at iteration 10000
+PLUMED:   Coefficients will be written out to file coeffs.0.data every 10 iterations
+PLUMED:   Output Components:
+PLUMED:    fake optimizer that does not update coefficients
+PLUMED:   can be used to monitor gradient and Hessian for debugging purposes
+PLUMED: Action UPPER_WALLS
+PLUMED:   with label wall1
+PLUMED:   with arguments lambda1
+PLUMED:   added component to this action:  wall1.bias 
+PLUMED:   at 1.000000
+PLUMED:   with an offset 0.000000
+PLUMED:   with force constant 10000.000000
+PLUMED:   and exponent 2.000000
+PLUMED:   rescaled 1.000000
+PLUMED:   added component to this action:  wall1.force2 
+PLUMED: Action LOWER_WALLS
+PLUMED:   with label wall2
+PLUMED:   with arguments lambda1
+PLUMED:   added component to this action:  wall2.bias 
+PLUMED:   at 0.000000
+PLUMED:   with an offset 0.000000
+PLUMED:   with force constant 10000.000000
+PLUMED:   and exponent 2.000000
+PLUMED:   rescaled 1.000000
+PLUMED:   added component to this action:  wall2.force2 
+PLUMED: Action UPPER_WALLS
+PLUMED:   with label wall3
+PLUMED:   with arguments diff
+PLUMED:   added component to this action:  wall3.bias 
+PLUMED:   at 0.000000
+PLUMED:   with an offset 0.000000
+PLUMED:   with force constant 10000.000000
+PLUMED:   and exponent 2.000000
+PLUMED:   rescaled 1.000000
+PLUMED:   added component to this action:  wall3.force2 
+PLUMED: Action PRINT
+PLUMED:   with label @14
+PLUMED:   with stride 500
+PLUMED:   with arguments energy vol cell.ax cell.ay cell.az cell.bx cell.by cell.bz cell.cx cell.cy cell.cz lambda1 lambda2 diff b1.bias b1.force2 wall1.bias wall1.force2 wall2.bias wall2.force2 wall3.bias wall3.force2
+PLUMED:   on file COLVAR
+PLUMED:   with format  %f
+PLUMED: END FILE: plumed.dat
+PLUMED: Timestep: 0.002000
+PLUMED: KbT has not been set by the MD engine
+PLUMED: It should be set by hand where needed
+PLUMED: Relevant bibliography:
+PLUMED:   [1] Tribello, Bonomi, Branduardi, Camilloni, and Bussi, Comput. Phys. Commun. 185, 604 (2014)
+PLUMED:   [2] Bartels and Karplus, J. Phys. Chem. B 102, 865 (1998)
+PLUMED:   [3] Bonomi and Parrinello, J. Comp. Chem. 30, 1615 (2009)
+PLUMED:   [4] Valsson and Parrinello, J. Chem. Theory Comput. 11, 1996-2002 (2015)
+PLUMED:   [5] Barducci, Bussi, and Parrinello, Phys. Rev. Lett. 100, 020603 (2008)
+PLUMED:   [6] Valsson and Parrinello, Phys. Rev. Lett. 113, 090601 (2014)
+PLUMED: Please read and cite where appropriate!
+PLUMED: Finished setup
+PLUMED:                                               Cycles        Total      Average      Minumum      Maximum
+PLUMED:                                                    1  1387.365052  1387.365052  1387.365052  1387.365052
+PLUMED: 1 Prepare dependencies                      20000501    26.450455     0.000001     0.000001     0.000038
+PLUMED: 2 Sharing data                              20000501     4.447357     0.000000     0.000000     0.000788
+PLUMED: 3 Waiting for data                          20000501    51.779745     0.000003     0.000002     0.000075
+PLUMED: 4 Calculating (forward loop)                20000501   967.747314     0.000048     0.000044     0.002398
+PLUMED: 5 Applying (backward loop)                  20000501   212.718744     0.000011     0.000010     0.000834
+PLUMED: 6 Update                                    20000501     9.540276     0.000000     0.000000     0.066507
