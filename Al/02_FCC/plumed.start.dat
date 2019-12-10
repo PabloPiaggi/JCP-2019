@@ -62,7 +62,7 @@ OPT_AVERAGED_SGD ...
   TARGETDIST_OUTPUT=500
   COEFFS_OUTPUT=100
   TARGETDIST_STRIDE=500
-  MULTIPLE_WALKERS
+  #MULTIPLE_WALKERS # Commented out to pass plumed nest's test, uncomment for calculation
 ... OPT_AVERAGED_SGD
 
 

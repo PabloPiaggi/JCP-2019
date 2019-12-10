@@ -19,7 +19,7 @@ print("")
 for i in range(temp.shape[0]):
 	for j in range(press.shape[0]):
 		name=str(int(temp[i])) + "-" + str(int(press[j]))
-		print("weights" + name  + ": REWEIGHT_TEMPERATURE_PRESSURE TEMP=400 PRESSURE=301.10704285 REWEIGHT_TEMP=" + str(temp[i]) + " REWEIGHT_PRESSURE=" + str(press[j]*0.06022140857) + " ARG=renergy,vol")
+		print("weights" + name  + ": REWEIGHT_TEMP_PRESS TEMP=400 PRESSURE=301.10704285 REWEIGHT_TEMP=" + str(temp[i]) + " REWEIGHT_PRESSURE=" + str(press[j]*0.06022140857) + " ENERGY=renergy VOLUME=vol")
 		#print("weights" + name  + ": REWEIGHT_TEMP TEMP=375 REWEIGHT_TEMP=" + str(temp[i]) + " ARG=renergy")
 		print("HISTOGRAM ...")
 		print("  ARG=refcv.morethan")
