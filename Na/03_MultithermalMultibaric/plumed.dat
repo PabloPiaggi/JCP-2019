@@ -2,7 +2,7 @@
 
 RESTART
 
-LOAD FILE=RefCV.cpp
+LOAD FILE=../../../RefCV.cpp
 
 energy: ENERGY
 

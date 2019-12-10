@@ -1,6 +1,6 @@
 # vim:ft=plumed
 
-LOAD FILE=RefCV.cpp
+LOAD FILE=../../../../../RefCV.cpp
 
 energy: ENERGY
 
