@@ -102,17 +102,6 @@ RefCV::RefCV(const ActionOptions&ao):
     Templates_[0][10] = Vector(+0.0,-0.5,+0.5)*lattice_constants[0];
     Templates_[0][11] = Vector(+0.0,+0.5,-0.5)*lattice_constants[0];
     max_dist_ref_vector = std::sqrt(2)*lattice_constants[0]/2.;
-  } else if (crystal_structure == "SC") {
-    if (lattice_constants.size() != 1) error("Number of LATTICE_CONSTANTS arguments must be one for SC");
-    Templates_.resize(1);
-    Templates_[0].resize(6);
-    Templates_[0][0]  = Vector(+1.0,+0.0,+0.0)*lattice_constants[0];
-    Templates_[0][1]  = Vector(-1.0,+0.0,+0.0)*lattice_constants[0];
-    Templates_[0][2]  = Vector(+0.0,+1.0,+0.0)*lattice_constants[0];
-    Templates_[0][3]  = Vector(+0.0,-1.0,+0.0)*lattice_constants[0];
-    Templates_[0][4]  = Vector(+0.0,+0.0,+1.0)*lattice_constants[0];
-    Templates_[0][5]  = Vector(+0.0,+0.0,-1.0)*lattice_constants[0];
-    max_dist_ref_vector = lattice_constants[0];
   } else if (crystal_structure == "BCC") {
     if (lattice_constants.size() != 1) error("Number of LATTICE_CONSTANTS arguments must be one for BCC");
     Templates_.resize(1);
@@ -132,51 +121,7 @@ RefCV::RefCV(const ActionOptions&ao):
     Templates_[0][12] = Vector(+0.0,-1.0,+0.0)*lattice_constants[0];
     Templates_[0][13] = Vector(+0.0,+0.0,-1.0)*lattice_constants[0];
     max_dist_ref_vector = lattice_constants[0];
-  } else if (crystal_structure == "HCP") {
-    if (lattice_constants.size() != 2) error("Number of LATTICE_CONSTANTS arguments must be two for HCP");
-    Templates_.resize(2);
-    Templates_[0].resize(12);
-    Templates_[1].resize(12);
-    double sqrt3=std::sqrt(3);
-    Templates_[0][0]  = Vector(+0.5,+sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[0][1]  = Vector(-0.5,+sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[0][2]  = Vector(+0.5,-sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[0][3]  = Vector(-0.5,-sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[0][4]  = Vector(+1.0,+0.0,+0.0)      *lattice_constants[0];
-    Templates_[0][5]  = Vector(-1.0,+0.0,+0.0)      *lattice_constants[0];
-    Templates_[0][6]  = Vector(+0.5,+sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[0][7]  = Vector(-0.5,+sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[0][8]  = Vector(+0.0,-sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[0][9]  = Vector(+0.5,+sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[0][10] = Vector(-0.5,+sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[0][11] = Vector(+0.0,-sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[1][0]  = Vector(+0.5,+sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[1][1]  = Vector(-0.5,+sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[1][2]  = Vector(+0.5,-sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[1][3]  = Vector(-0.5,-sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[1][4]  = Vector(+1.0,+0.0,+0.0)      *lattice_constants[0];
-    Templates_[1][5]  = Vector(-1.0,+0.0,+0.0)      *lattice_constants[0];
-    Templates_[1][6]  = Vector(+0.5,-sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[1][7]  = Vector(-0.5,-sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[1][8]  = Vector(+0.0,+sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[1][9]  = Vector(+0.5,-sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[1][10] = Vector(-0.5,-sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[1][11] = Vector(+0.0,+sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    max_dist_ref_vector = lattice_constants[0];
- } else if (crystal_structure == "DIAMOND") {
-    if (lattice_constants.size() != 1) error("Number of LATTICE_CONSTANTS arguments must be one for DIAMOND");
-    Templates_.resize(2);
-    Templates_[0].resize(4); Templates_[1].resize(4);
-    Templates_[0][0]  = Vector(+1.0,+1.0,+1.0)*lattice_constants[0]/4.0;
-    Templates_[0][1]  = Vector(-1.0,-1.0,+1.0)*lattice_constants[0]/4.0;
-    Templates_[0][2]  = Vector(+1.0,-1.0,-1.0)*lattice_constants[0]/4.0;
-    Templates_[0][3]  = Vector(-1.0,+1.0,-1.0)*lattice_constants[0]/4.0;
-    Templates_[1][0]  = Vector(+1.0,-1.0,+1.0)*lattice_constants[0]/4.0;
-    Templates_[1][1]  = Vector(-1.0,+1.0,+1.0)*lattice_constants[0]/4.0;
-    Templates_[1][2]  = Vector(+1.0,+1.0,-1.0)*lattice_constants[0]/4.0;
-    Templates_[1][3]  = Vector(-1.0,-1.0,-1.0)*lattice_constants[0]/4.0;
-    max_dist_ref_vector = std::sqrt(3)*lattice_constants[0]/4.0;
- } else if (crystal_structure == "CUSTOM") {
+  } else if (crystal_structure == "CUSTOM") {
     max_dist_ref_vector = 0.0;
     // Case with one template 
     Templates_.resize(1);
@@ -209,17 +154,8 @@ RefCV::RefCV(const ActionOptions&ao):
         if (tmp_template.size()>0) Templates_.push_back(tmp_template);
       }
     }
-    /*
-    for(unsigned int i=0;i<Templates_.size(); i++) {
-        for(unsigned int j=0;j<Templates_[i].size(); j++) {
-           log.printf("Template %d vector %d pos %f %f %f \n",i,j,Templates_[i][j][0],Templates_[i][j][1],Templates_[i][j][2]);
-        }
-    }
-    */
     log.printf("  number of templates %d\n",Templates_.size() );
     log.printf("  number of vectors per template %d\n",Templates_[0].size() );
-    // Find maximum distance
-    
   } else {
     error("CRYSTAL_STRUCTURE=" + crystal_structure + " does not match any structures in the database");
   }
@@ -234,7 +170,6 @@ RefCV::RefCV(const ActionOptions&ao):
 
   lambda_=100;
   parse("LAMBDA", lambda_);
-  //if (Templates_.size()>1 && lambda_=0.) error("The LAMBDA keyword needs to be specified when using more than one template, e.g. in the HCP case")
   if (Templates_.size()>1) log.printf("  using a lambda value of %f\n",lambda_);
 
   // Set the link cell cutoff
@@ -319,143 +254,3 @@ double RefCV::compute( const unsigned& tindex, AtomValuePack& myatoms ) const {
 
 }
 }
-
-
-/* Old templates
- } else if (crystal_structure == "HCP3RD") {
-    if (lattice_constants.size() != 2) error("Number of LATTICE_CONSTANTS arguments must be two for HCP");
-    Templates_.resize(2);
-    Templates_[0].resize(20);
-    Templates_[1].resize(20);
-    double sqrt3=std::sqrt(3);
-    Templates_[0][0]  = Vector(+0.5,+sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[0][1]  = Vector(-0.5,+sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[0][2]  = Vector(+0.5,-sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[0][3]  = Vector(-0.5,-sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[0][4]  = Vector(+1.0,+0.0,+0.0)      *lattice_constants[0];
-    Templates_[0][5]  = Vector(-1.0,+0.0,+0.0)      *lattice_constants[0];
-    Templates_[0][6]  = Vector(+0.5,+sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[0][7]  = Vector(-0.5,+sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[0][8]  = Vector(+0.0,-sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[0][9]  = Vector(+1.0,-sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[0][10] = Vector(-1.0,-sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[0][11] = Vector(+0.0,+2*sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[0][12] = Vector(+0.5,+sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[0][13] = Vector(-0.5,+sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[0][14] = Vector(+0.0,-sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[0][15] = Vector(+1.0,-sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[0][16] = Vector(-1.0,-sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[0][17] = Vector(+0.0,+2*sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[0][18] = Vector(+0.0,+0.0,+1.0)*lattice_constants[1];
-    Templates_[0][19] = Vector(+0.0,+0.0,-1.0)*lattice_constants[1];
-    Templates_[1][0]  = Vector(+0.5,+sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[1][1]  = Vector(-0.5,+sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[1][2]  = Vector(+0.5,-sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[1][3]  = Vector(-0.5,-sqrt3/2.0,+0.0)*lattice_constants[0];
-    Templates_[1][4]  = Vector(+1.0,+0.0,+0.0)      *lattice_constants[0];
-    Templates_[1][5]  = Vector(-1.0,+0.0,+0.0)      *lattice_constants[0];
-    Templates_[1][6]  = Vector(+0.5,-sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[1][7]  = Vector(-0.5,-sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[1][8]  = Vector(+0.0,+sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[1][9]  = Vector(+1.0,+sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[1][10] = Vector(-1.0,+sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[1][11] = Vector(+0.0,-2*sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,+0.5)*lattice_constants[1];
-    Templates_[1][12] = Vector(+0.5,-sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[1][13] = Vector(-0.5,-sqrt3/6.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[1][14] = Vector(+0.0,+sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[1][15] = Vector(+1.0,+sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[1][16] = Vector(-1.0,+sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[1][17] = Vector(+0.0,-2*sqrt3/3.0,+0.0)*lattice_constants[0] + Vector(+0.0,+0.0,-0.5)*lattice_constants[1];
-    Templates_[1][18] = Vector(+0.0,+0.0,+1.0)*lattice_constants[1];
-    Templates_[1][19] = Vector(+0.0,+0.0,-1.0)*lattice_constants[1];
-    max_dist_ref_vector = lattice_constants[1];
- } else if (crystal_structure == "ALPHAGA") {
-    if (lattice_constants.size() != 3) error("Number of LATTICE_CONSTANTS arguments must be three for ALPHAGA");
-    Templates_.resize(4);
-    Templates_[0].resize(7); Templates_[1].resize(7); Templates_[2].resize(7); Templates_[3].resize(7);
-    Templates_[0][0]  = Vector(+0.5*lattice_constants[0],+0.0000*lattice_constants[1],+0.3380*lattice_constants[2]);
-    Templates_[0][1]  = Vector(+0.0*lattice_constants[0],+0.1902*lattice_constants[1],+0.5000*lattice_constants[2]);
-    Templates_[0][2]  = Vector(-0.5*lattice_constants[0],+0.1902*lattice_constants[1],-0.1620*lattice_constants[2]);
-    Templates_[0][3]  = Vector(-0.5*lattice_constants[0],+0.0000*lattice_constants[1],+0.3380*lattice_constants[2]);
-    Templates_[0][4]  = Vector(+0.0*lattice_constants[0],-0.3098*lattice_constants[1],-0.1620*lattice_constants[2]);
-    Templates_[0][5]  = Vector(+0.5*lattice_constants[0],+0.1902*lattice_constants[1],-0.1620*lattice_constants[2]);
-    Templates_[0][6]  = Vector(+0.0*lattice_constants[0],+0.1902*lattice_constants[1],-0.5000*lattice_constants[2]);
-    Templates_[1][0]  = Vector(+0.5*lattice_constants[0],-0.1902*lattice_constants[1],-0.1620*lattice_constants[2]);
-    Templates_[1][1]  = Vector(+0.5*lattice_constants[0],+0.0000*lattice_constants[1],+0.3380*lattice_constants[2]);
-    Templates_[1][2]  = Vector(+0.0*lattice_constants[0],-0.1902*lattice_constants[1],-0.5000*lattice_constants[2]);
-    Templates_[1][3]  = Vector(-0.5*lattice_constants[0],-0.1902*lattice_constants[1],-0.1620*lattice_constants[2]);
-    Templates_[1][4]  = Vector(-0.5*lattice_constants[0],+0.0000*lattice_constants[1],+0.3380*lattice_constants[2]);
-    Templates_[1][5]  = Vector(+0.0*lattice_constants[0],-0.1902*lattice_constants[1],+0.5000*lattice_constants[2]);
-    Templates_[1][6]  = Vector(+0.0*lattice_constants[0],+0.3098*lattice_constants[1],-0.1620*lattice_constants[2]);
-    Templates_[2][0]  = Vector(+0.0*lattice_constants[0],-0.1902*lattice_constants[1],-0.5000*lattice_constants[2]);
-    Templates_[2][1]  = Vector(-0.5*lattice_constants[0],+0.0000*lattice_constants[1],-0.3380*lattice_constants[2]);
-    Templates_[2][2]  = Vector(+0.0*lattice_constants[0],-0.1902*lattice_constants[1],+0.5000*lattice_constants[2]);
-    Templates_[2][3]  = Vector(-0.5*lattice_constants[0],-0.1902*lattice_constants[1],+0.1620*lattice_constants[2]);
-    Templates_[2][4]  = Vector(+0.0*lattice_constants[0],+0.3098*lattice_constants[1],+0.1620*lattice_constants[2]);
-    Templates_[2][5]  = Vector(+0.5*lattice_constants[0],+0.0000*lattice_constants[1],-0.3380*lattice_constants[2]);
-    Templates_[2][6]  = Vector(+0.5*lattice_constants[0],-0.1902*lattice_constants[1],+0.1620*lattice_constants[2]);
-    Templates_[3][0]  = Vector(+0.0*lattice_constants[0],+0.1902*lattice_constants[1],+0.5000*lattice_constants[2]);
-    Templates_[3][1]  = Vector(-0.5*lattice_constants[0],+0.1902*lattice_constants[1],+0.1612*lattice_constants[2]);
-    Templates_[3][2]  = Vector(-0.5*lattice_constants[0],+0.0000*lattice_constants[1],-0.3380*lattice_constants[2]);
-    Templates_[3][3]  = Vector(+0.0*lattice_constants[0],-0.3098*lattice_constants[1],+0.1620*lattice_constants[2]);
-    Templates_[3][4]  = Vector(+0.0*lattice_constants[0],+0.1902*lattice_constants[1],-0.5000*lattice_constants[2]);
-    Templates_[3][5]  = Vector(+0.5*lattice_constants[0],+0.1902*lattice_constants[1],+0.1620*lattice_constants[2]);
-    Templates_[3][6]  = Vector(+0.5*lattice_constants[0],+0.0000*lattice_constants[1],-0.3380*lattice_constants[2]);
-    max_dist_ref_vector = Vector(0.5*lattice_constants[0],0.190199979664*lattice_constants[1], 0.161999945215*lattice_constants[2]).modulo() ;
- } else if (crystal_structure == "GAII") {
-    if (lattice_constants.size() != 1) error("Number of LATTICE_CONSTANTS arguments must be one for GAII");
-    Templates_.resize(6);
-    Templates_[0].resize(8); Templates_[1].resize(8); Templates_[2].resize(8); Templates_[3].resize(8); Templates_[4].resize(8); Templates_[5].resize(8);
-    Templates_[0][0] = Vector(-0.375,-0.25,-0.125)*lattice_constants[0];
-    Templates_[0][1] = Vector(0.125,-0.25,-0.375)*lattice_constants[0];
-    Templates_[0][2] = Vector(-0.125,-0.375,0.25)*lattice_constants[0];
-    Templates_[0][3] = Vector(-0.375,0.25,0.125)*lattice_constants[0];
-    Templates_[0][4] = Vector(-0.125,0.375,-0.25)*lattice_constants[0];
-    Templates_[0][5] = Vector(0.375,0.125,-0.25)*lattice_constants[0];
-    Templates_[0][6] = Vector(0.375,-0.125,0.25)*lattice_constants[0];
-    Templates_[0][7] = Vector(0.125,0.25,0.375)*lattice_constants[0];
-    Templates_[1][0] = Vector(-0.375,-0.125,-0.25)*lattice_constants[0];
-    Templates_[1][1] = Vector(0.125,-0.375,-0.25)*lattice_constants[0];
-    Templates_[1][2] = Vector(-0.125,0.25,-0.375)*lattice_constants[0];
-    Templates_[1][3] = Vector(-0.375,0.125,0.25)*lattice_constants[0];
-    Templates_[1][4] = Vector(-0.125,-0.25,0.375)*lattice_constants[0];
-    Templates_[1][5] = Vector(0.375,-0.25,0.125)*lattice_constants[0];
-    Templates_[1][6] = Vector(0.375,0.25,-0.125)*lattice_constants[0];
-    Templates_[1][7] = Vector(0.125,0.375,0.25)*lattice_constants[0];
-    Templates_[2][0] = Vector(-0.125,-0.375,-0.25)*lattice_constants[0];
-    Templates_[2][1] = Vector(-0.375,0.125,-0.25)*lattice_constants[0];
-    Templates_[2][2] = Vector(0.25,-0.125,-0.375)*lattice_constants[0];
-    Templates_[2][3] = Vector(-0.25,-0.125,0.375)*lattice_constants[0];
-    Templates_[2][4] = Vector(0.125,-0.375,0.25)*lattice_constants[0];
-    Templates_[2][5] = Vector(-0.25,0.375,0.125)*lattice_constants[0];
-    Templates_[2][6] = Vector(0.25,0.375,-0.125)*lattice_constants[0];
-    Templates_[2][7] = Vector(0.375,0.125,0.25)*lattice_constants[0];
-    Templates_[3][0] = Vector(-0.25,-0.375,-0.125)*lattice_constants[0];
-    Templates_[3][1] = Vector(-0.25,0.125,-0.375)*lattice_constants[0];
-    Templates_[3][2] = Vector(-0.375,-0.125,0.25)*lattice_constants[0];
-    Templates_[3][3] = Vector(0.25,-0.375,0.125)*lattice_constants[0];
-    Templates_[3][4] = Vector(0.375,-0.125,-0.25)*lattice_constants[0];
-    Templates_[3][5] = Vector(0.125,0.375,-0.25)*lattice_constants[0];
-    Templates_[3][6] = Vector(-0.125,0.375,0.25)*lattice_constants[0];
-    Templates_[3][7] = Vector(0.25,0.125,0.375)*lattice_constants[0];
-    Templates_[4][0] = Vector(-0.25,-0.125,-0.375)*lattice_constants[0];
-    Templates_[4][1] = Vector(-0.25,-0.375,0.125)*lattice_constants[0];
-    Templates_[4][2] = Vector(-0.375,0.25,-0.125)*lattice_constants[0];
-    Templates_[4][3] = Vector(0.25,0.125,-0.375)*lattice_constants[0];
-    Templates_[4][4] = Vector(0.375,-0.25,-0.125)*lattice_constants[0];
-    Templates_[4][5] = Vector(0.125,-0.25,0.375)*lattice_constants[0];
-    Templates_[4][6] = Vector(-0.125,0.25,0.375)*lattice_constants[0];
-    Templates_[4][7] = Vector(0.25,0.375,0.125)*lattice_constants[0];
-    Templates_[5][0] = Vector(-0.125,-0.25,-0.375)*lattice_constants[0];
-    Templates_[5][1] = Vector(-0.375,-0.25,0.125)*lattice_constants[0];
-    Templates_[5][2] = Vector(0.25,-0.375,-0.125)*lattice_constants[0];
-    Templates_[5][3] = Vector(-0.25,0.375,-0.125)*lattice_constants[0];
-    Templates_[5][4] = Vector(0.125,0.25,-0.375)*lattice_constants[0];
-    Templates_[5][5] = Vector(-0.25,0.125,0.375)*lattice_constants[0];
-    Templates_[5][6] = Vector(0.25,-0.125,0.375)*lattice_constants[0];
-    Templates_[5][7] = Vector(0.375,0.25,0.125)*lattice_constants[0];
-    max_dist_ref_vector = (Vector(0.25,0.125,0.375)*lattice_constants[0]).modulo() ;
- } 
-
-
-*/
