@@ -1,5 +1,7 @@
 # vim:ft=plumed
 
+LOAD FILE=RefCV.cpp
+
 RESTART
 
 energy: ENERGY
